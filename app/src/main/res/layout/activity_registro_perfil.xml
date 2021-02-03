@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/spacing_xlarge">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/spacing_xlarge"
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:text="REGISTRO"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="@color/cardview_dark_background"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
+                android:gravity="center"
+                android:text="Con que perfil te vas a registrar" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/toast_simple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
+                android:background="@drawable/btn_rounded_primary"
+                android:gravity="center"
+                android:text="Estudiante"
+                android:textColor="@android:color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/toast_custom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
+                android:background="@drawable/btn_rounded_primary"
+                android:gravity="center"
+                android:text="Docente"
+                android:textColor="@android:color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/toast_custom_colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
+                android:background="@drawable/btn_rounded_primary"
+                android:gravity="center"
+                android:text="Administrativo"
+                android:textColor="@android:color/white" />
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/snackbar_simple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
+                android:background="@drawable/btn_rounded_primary"
+                android:gravity="center"
+                android:text="Contratista"
+                android:textColor="@android:color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/snackbar_with_action"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
+                android:background="@drawable/btn_rounded_primary"
+                android:gravity="center"
+                android:text="Otro"
+                android:textColor="@android:color/white" />
+
+
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+
+
