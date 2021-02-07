@@ -13,12 +13,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class ReporteSaludActivity extends AppCompatActivity {
 
     private static final int MAX_STEP = 6;
     private int current_step = 0;
     private ProgressBar progressBar;
     private TextView status;
+    private TextView title;
     String questions[] = {
             "¿Tiene fiebre o la ha tenido en los últimos 14 días? , esto es, una temperatura mayor o igual a 38°C.",
             "¿Tiene o ha tenido en los últimos 14 días dificultad respiratoria o algún otro síntoma respiratorio como tos. secreción nasal, pérdida del olfato?",
@@ -41,6 +46,7 @@ public class ReporteSaludActivity extends AppCompatActivity {
 
     private void initComponent() {
         status = (TextView) findViewById(R.id.status);
+        title = (TextView) findViewById(R.id.text_titulo_reporte);
         progressBar = (ProgressBar) findViewById(R.id.progress);
         progressBar.setMax(MAX_STEP);
         progressBar.setProgress(current_step);
@@ -59,6 +65,9 @@ public class ReporteSaludActivity extends AppCompatActivity {
                 nextStep(current_step);
             }
         });
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        String str_title = getString(R.string.tiltle_questions) + "\n" + currentDate;
+        title.setText(str_title);
         //Genera preguntas para el reporte de auto Salud
         status.setText(questions[current_step]);
     }
