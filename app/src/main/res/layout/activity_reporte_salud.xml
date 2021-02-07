@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_20"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="?attr/actionBarSize"
+            android:gravity="center"
+            android:text="¿Tiene o ha tenido en los últimos 14 días dificultad respiratoria o algún otro síntoma respiratorio como tos. secreción nasal, pérdida del olfato?"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/grey_60"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingTop="120dp"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radio_si"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SI"
+                android:checked="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/grey_90" />
+
+            <View
+                android:layout_width="@dimen/spacing_mlarge"
+                android:layout_height="0dp" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radio_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/grey_90" />
+
+        </RadioGroup>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:background="@color/grey_3"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/lyt_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_middle">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/grey_60"
+                    app:srcCompat="@drawable/ic_chevron_left" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/BACK"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/grey_60"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/spacing_xlarge"
+                    android:layout_marginRight="@dimen/spacing_xlarge"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="40" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyt_next"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NEXT"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/grey_60"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/grey_60"
+                    app:srcCompat="@drawable/ic_chevron_right" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+
+
