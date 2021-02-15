@@ -1,10 +1,12 @@
-package com.appcontrol.appcontroledu;
+package com.appcontrol.appcontroledu.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.appcontrol.appcontroledu.R;
 
 public class MainActivity extends AppCompatActivity {
 

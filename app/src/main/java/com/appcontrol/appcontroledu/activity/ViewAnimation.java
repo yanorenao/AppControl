@@ -1,4 +1,4 @@
-package com.appcontrol.appcontroledu;
+package com.appcontrol.appcontroledu.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -126,7 +126,7 @@ public class ViewAnimation {
     }
 
     public static void fadeIn(final View v) {
-        com.appcontrol.appcontroledu.ViewAnimation.fadeIn(v, null);
+        ViewAnimation.fadeIn(v, null);
     }
 
     public static void fadeIn(final View v, final AnimListener animListener) {
@@ -147,7 +147,7 @@ public class ViewAnimation {
     }
 
     public static void fadeOut(final View v) {
-        com.appcontrol.appcontroledu.ViewAnimation.fadeOut(v, null);
+        ViewAnimation.fadeOut(v, null);
     }
 
     public static void fadeOut(final View v, final AnimListener animListener) {
@@ -234,7 +234,7 @@ public class ViewAnimation {
 
 
     public static void showScale(final View v) {
-        com.appcontrol.appcontroledu.ViewAnimation.showScale(v, null);
+        ViewAnimation.showScale(v, null);
     }
 
     public static void showScale(final View v, final AnimListener animListener) {
@@ -253,7 +253,7 @@ public class ViewAnimation {
     }
 
     public static void hideScale(final View v) {
-        com.appcontrol.appcontroledu.ViewAnimation.fadeOut(v, null);
+        ViewAnimation.fadeOut(v, null);
     }
 
     public static void hideScale(final View v, final AnimListener animListener) {

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/lyt_parent"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:minHeight="?attr/actionBarSize"
+android:orientation="horizontal">
+    <LinearLayout
+        android:layout_marginRight="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layout_alignParentRight="true"
+
+        android:orientation="vertical">
+        <Button
+            android:layout_width="115dp"
+            android:layout_height="45dp"
+            android:text="Aceptar"
+            android:layout_marginTop="4dp"
+            android:id="@+id/button_aceptar"
+            android:theme="@style/Button.Primary"
+
+            />
+
+        <Button
+            android:layout_width="115dp"
+            android:layout_height="45dp"
+            android:text="Rechazar"
+            android:layout_marginTop="-4dp"
+            android:id="@+id/button_rechazar"
+            android:theme="@style/Button.Primary"  />
+
+    </LinearLayout>
+
+
+
+
+<View
+    android:layout_width="@dimen/spacing_medium"
+    android:layout_height="0dp" />
+
+<LinearLayout
+    android:layout_marginLeft="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/spacing_middle"
+        android:paddingTop="@dimen/spacing_middle">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_middle"
+            android:layout_marginRight="@dimen/spacing_middle"
+            android:text="People Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/grey_90" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_middle"
+            android:layout_marginRight="@dimen/spacing_middle"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:maxLines="2"
+            android:text="Yeison Noreña Osorio"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/grey_40" />
+        <TextView
+            android:id="@+id/description2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_middle"
+            android:layout_marginRight="@dimen/spacing_middle"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:maxLines="2"
+            android:text="Colegio pepito Pepito perez"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/grey_40" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_10" />
+
+</LinearLayout>
+
+
+</RelativeLayout>

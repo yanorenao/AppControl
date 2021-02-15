@@ -1,4 +1,4 @@
-package com.appcontrol.appcontroledu;
+package com.appcontrol.appcontroledu.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.appcontrol.appcontroledu.R;
 
 public class InformacionInstitucionActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.appcontrol.appcontroledu;
+package com.appcontrol.appcontroledu.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.appcontrol.appcontroledu.R;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 public class RegistroUsuarioActivity extends AppCompatActivity {

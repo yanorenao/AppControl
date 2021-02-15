@@ -1,8 +1,10 @@
-package com.appcontrol.appcontroledu;
+package com.appcontrol.appcontroledu.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.appcontrol.appcontroledu.R;
 
 public class AlertActivity extends AppCompatActivity {
 
