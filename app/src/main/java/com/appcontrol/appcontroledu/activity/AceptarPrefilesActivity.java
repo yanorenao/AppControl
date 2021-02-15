@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.appcontrol.appcontroledu.R;
+import com.appcontrol.appcontroledu.adapter.RegisterAdapter;
 import com.appcontrol.appcontroledu.data.Contact;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class AceptarPrefilesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_aceptar_prefiles);
+        setContentView(R.layout.activity_aceptar_perfiles);
 
         RecyclerView rvContacts = (RecyclerView) findViewById(R.id.recyclerView);
 
