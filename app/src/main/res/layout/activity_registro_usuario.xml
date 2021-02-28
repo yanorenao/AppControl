@@ -49,6 +49,7 @@
                 android:textColor="@color/grey_60" />
 
             <EditText
+                android:id="@+id/et_nit"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
@@ -56,7 +57,10 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="900139110-5" />
+                android:inputType="phone"
+                android:digits="1234567890-"
+                android:text="900130412-3"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -79,7 +83,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="Sala 101" />
+                android:clickable="true"/>
 
             <View
                 android:layout_width="match_parent"
@@ -89,6 +93,7 @@
                 android:background="@color/grey_20" />
 
             <TextView
+                android:id="@+id/txt_nombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_medium"
@@ -99,6 +104,7 @@
 
 
             <EditText
+                android:id="@+id/et_nombres"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
@@ -118,6 +124,7 @@
                 android:textColor="@color/grey_60" />
 
             <EditText
+                android:id="@+id/et_apellidos"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
@@ -137,6 +144,7 @@
                 android:textColor="@color/grey_60" />
 
             <EditText
+                android:id="@+id/et_email"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
@@ -152,10 +160,13 @@
                 android:layout_marginBottom="@dimen/spacing_medium"
                 android:layout_marginTop="@dimen/spacing_large"
                 android:text="Teléfono"
+                android:inputType="phone"
+                android:digits="1234567890"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/grey_60" />
 
             <EditText
+                android:id="@+id/et_telefono"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
@@ -209,7 +220,7 @@
                         android:textColor="@color/grey_60" />
 
                     <EditText
-                        android:id="@+id/et_state"
+                        android:id="@+id/et_documento"
                         style="@style/EditText.Flat.Grey"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_xmlarge"
@@ -221,7 +232,8 @@
                         android:minHeight="@dimen/spacing_xmlarge"
                         android:paddingLeft="@dimen/spacing_middle"
                         android:paddingRight="@dimen/spacing_middle"
-                        android:text="Cedula" />
+                        android:text="TARJETA DE IDENTIDAD"
+                        android:textSize="12dp"/>
 
                 </LinearLayout>
 
@@ -244,11 +256,14 @@
                         android:textColor="@color/grey_60" />
 
                     <EditText
+                        android:id="@+id/et_numeroDocumento"
                         style="@style/EditText.Flat.Grey"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_xmlarge"
                         android:background="@drawable/edit_text_round_bg_white"
                         android:minHeight="@dimen/spacing_xmlarge"
+                        android:inputType="phone"
+                        android:digits="1234567890"
                         android:paddingLeft="@dimen/spacing_middle"
                         android:paddingRight="@dimen/spacing_middle"
                         android:text="6625" />
@@ -269,6 +284,7 @@
                 android:textColor="@color/grey_60" />
 
             <EditText
+                android:id="@+id/et_barrio"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
@@ -288,6 +304,7 @@
                 android:textColor="@color/grey_60" />
 
             <EditText
+                android:id="@+id/et_direccion"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
@@ -323,6 +340,7 @@
                 android:textColor="@color/grey_60" />
 
             <EditText
+                android:id="@+id/et_nombreResponsable"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
@@ -330,7 +348,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="Yeison A" />
+                android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -342,6 +360,7 @@
                 android:textColor="@color/grey_60" />
 
             <EditText
+                android:id="@+id/et_apellidoResponsable"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
@@ -361,6 +380,7 @@
                 android:textColor="@color/grey_60" />
 
             <EditText
+                android:id="@+id/et_emailResponsable"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
@@ -380,6 +400,7 @@
                 android:textColor="@color/grey_60" />
 
             <EditText
+                android:id="@+id/et_TelefonoResponsable"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
@@ -387,10 +408,9 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
+                android:inputType="phone"
+                android:digits="1234567890"
                 android:text="083 2374 2342" />
-
-
-
 
 
             <Button
