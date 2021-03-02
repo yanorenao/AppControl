@@ -7,6 +7,7 @@ import com.appcontrol.appcontroledu.data.Persona;
 import com.appcontrol.appcontroledu.data.Salon;
 import com.appcontrol.appcontroledu.data.User;
 import com.appcontrol.appcontroledu.data.Usuario;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface APIInterface {
 
 
     @POST("usuarios/login")
-    Call<Login> sendLogin(@Body Login logins);
+    Call<JsonObject> sendLogin(@Body Login logins);
 
     @POST("institucion/existe")
     Call<Institucion> exist(@Body Institucion instituciones);

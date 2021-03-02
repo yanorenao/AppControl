@@ -5,10 +5,13 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.appcontrol.appcontroledu.R;
+import com.appcontrol.appcontroledu.data.InfoUsuario;
+import com.google.gson.Gson;
 
 public class MenuPrincipalUserActivity extends AppCompatActivity {
 
@@ -26,8 +29,12 @@ public class MenuPrincipalUserActivity extends AppCompatActivity {
         cardView_reportarSalud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(MenuPrincipalUserActivity.this, ReporteSaludActivity.class);
-                startActivity(myIntent);
+                Gson gson = new Gson();
+                InfoUsuario ob = gson.fromJson(getIntent().getStringExtra("myjson"), InfoUsuario.class);
+                Log.d("persona",ob.getInfoUser().getPersona().get(0).getNombres());
+                //Toast.makeText(getApplicationContext(), ob.getInfoUser().getPersona().toString(), Toast.LENGTH_LONG).show();
+                //Intent myIntent = new Intent(MenuPrincipalUserActivity.this, ReporteSaludActivity.class);
+                //startActivity(myIntent);
             }
         });
 

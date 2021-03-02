@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -69,12 +70,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void PostPersona(Login object) {
-        Call<Login> call = apiInterface.sendLogin(object);
-        call.enqueue(new Callback<Login>() {
+        Call<JsonObject> call = apiInterface.sendLogin(object);
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<Login> call, Response<Login> response) {
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()) {
+                    JsonObject myJson = response.body().getAsJsonObject();
+                    Log.d("Json", " " + myJson.toString());
                     Intent myIntent = new Intent(LoginActivity.this, MenuPrincipalUserActivity.class);
+                    myIntent.putExtra("myjson", myJson.toString());
                     startActivity(myIntent);
 
                 } else {
@@ -89,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Login> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
