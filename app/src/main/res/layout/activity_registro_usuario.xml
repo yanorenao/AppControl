@@ -220,7 +220,7 @@
                         android:textColor="@color/grey_60" />
 
                     <EditText
-                        android:id="@+id/et_documento"
+                        android:id="@+id/et_tipoDocumento"
                         style="@style/EditText.Flat.Grey"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_xmlarge"
@@ -232,7 +232,7 @@
                         android:minHeight="@dimen/spacing_xmlarge"
                         android:paddingLeft="@dimen/spacing_middle"
                         android:paddingRight="@dimen/spacing_middle"
-                        android:text="TARJETA DE IDENTIDAD"
+                        android:text=""
                         android:textSize="12dp"/>
 
                 </LinearLayout>
@@ -273,6 +273,36 @@
 
 
             </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:text="Contraseña"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/grey_60" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xmlarge"
+                android:textColorHint="#B9B8B8"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/et_contraseña"
+                    style="@style/EditText.Flat.Grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_round_bg_white"
+                    android:paddingLeft="@dimen/spacing_middle"
+                    android:paddingRight="@dimen/spacing_middle"
+                    android:padding="16dp"
+                    android:textSize="18sp"
+                    android:inputType="textPassword"
+                     />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="wrap_content"

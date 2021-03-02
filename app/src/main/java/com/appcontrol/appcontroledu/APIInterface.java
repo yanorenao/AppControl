@@ -6,6 +6,7 @@ import com.appcontrol.appcontroledu.data.Login;
 import com.appcontrol.appcontroledu.data.Persona;
 import com.appcontrol.appcontroledu.data.Salon;
 import com.appcontrol.appcontroledu.data.User;
+import com.appcontrol.appcontroledu.data.Usuario;
 
 import java.util.List;
 
@@ -37,6 +38,9 @@ public interface APIInterface {
 
     @POST("persona")
     Call<Persona> sendPersona(@Body Persona personas);
+
+    @POST("usuarios")
+    Call<Usuario> sendUsuario(@Body Usuario usuarios);
 
 }
 

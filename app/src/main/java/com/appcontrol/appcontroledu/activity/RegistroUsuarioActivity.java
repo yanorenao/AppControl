@@ -1,11 +1,15 @@
 package com.appcontrol.appcontroledu.activity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,10 +17,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,18 +34,16 @@ import com.appcontrol.appcontroledu.data.Globals;
 import com.appcontrol.appcontroledu.data.Institucion;
 import com.appcontrol.appcontroledu.data.Persona;
 import com.appcontrol.appcontroledu.data.Salon;
+import com.appcontrol.appcontroledu.data.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 
 public class RegistroUsuarioActivity extends AppCompatActivity {
@@ -60,7 +63,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         EditText et_fechaNacimiento = findViewById(R.id.et_fechaNacimiento);
         EditText et_nit = findViewById(R.id.et_nit);
         EditText et_salon = findViewById(R.id.et_salon);
-        EditText et_documento = findViewById(R.id.et_documento);
+        EditText et_documento = findViewById(R.id.et_tipoDocumento);
 
         final Button btn_guardar = (Button) findViewById(R.id.bt_submit);
 
@@ -141,11 +144,14 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                 if(!validateEditText(idsEditText()))
                 {
                     //if not empty do something
-                    HashMap dataz = new HashMap<String, String>(getvalueperson(idsEditText()));
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    String json = gson.toJson(createPersona(savedInstanceState));// obj is your objectjosn
-                    Log.d("Json",json);
-                    PostPersona(createPersona(savedInstanceState));
+                    globalIndex.setIdTipoPerosna(getPutExtra(savedInstanceState));
+                    PostPersona(getValuesPersona());
+                    //HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
+                    //Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    //String json = gson.toJson(getValueUsuario());// obj is your objectjosn
+                    //Log.d("Json",json);
+
+
 
 
                     //PostPersona(createPersona(savedInstanceState));
@@ -192,12 +198,52 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
     }
 
+    private void PostUsuario(Usuario object) {
+        Call<Usuario> call = apiInterface.sendUsuario(object);
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                //Toast.makeText(getApplicationContext(), response.code(), Toast.LENGTH_LONG).show();
+                if (response.isSuccessful()) {
+                    showCustomDialog();
+
+                } else {
+
+                    try {
+                        Toast.makeText(getApplicationContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
     private void PostPersona(Persona object) {
         Call<Persona> call = apiInterface.sendPersona(object);
         call.enqueue(new Callback<Persona>() {
             @Override
             public void onResponse(Call<Persona> call, Response<Persona> response) {
-                Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_LONG).show();
+
+                Globals globalIdPersona = ((Globals)getApplicationContext());
+                globalIdPersona.setIdPersona(response.body().getId());
+                //HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
+                //Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                //String json = gson.toJson(getValuesUsuario());// obj is your objectjosn
+                //Log.d("Json",json);
+                PostUsuario(getValuesUsuario());
+
+
 
             }
 
@@ -220,7 +266,9 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                         R.id.et_email,
                         R.id.et_telefono,
                         R.id.et_fechaNacimiento,
+                        R.id.et_tipoDocumento,
                         R.id.et_numeroDocumento,
+                        R.id.et_contraseña,
                         R.id.et_barrio,
                         R.id.et_direccion,
                         R.id.et_nombreResponsable,
@@ -239,7 +287,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         return list;
     }
 
-    private HashMap getvalueperson(int[] ids){
+    private HashMap getValuesEditext(int[] ids){
         HashMap<String, String> registros = new HashMap<String, String>();
         for(int id : ids){
             EditText t = findViewById(id);
@@ -251,11 +299,22 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
     //
 
-    private Persona createPersona(Bundle savedInstanceState){
+    private Usuario getValuesUsuario(){
         Globals global = ((Globals)getApplicationContext());
-        HashMap dataz = new HashMap<String, String>(getvalueperson(idsEditText()));
-        Log.d("et_direccion",dataz.get("et_direccion").toString());
+        HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
+        Usuario usuario = new Usuario();
+        usuario.setPersona(stringToList(global.getIdPersona()));
+        usuario.setTipoUsuario(stringToList(global.getIdTipoPerosna()));
+        usuario.setEstado(stringToList("6033d0cc738cb125f8477099"));
+        usuario.setUsuario(dataz.get("et_numeroDocumento").toString());
+        usuario.setClave(dataz.get("et_contraseña").toString());
+        return usuario;
 
+    }
+
+    private Persona getValuesPersona(){
+        Globals global = ((Globals)getApplicationContext());
+        HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
         Persona persona = new Persona();
         persona.setTipoDocumento(stringToList(global.getIdDocument()));
         persona.setId("true");
@@ -263,12 +322,14 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         persona.setInstitucion(stringToList(global.getIdInstitucion()));
         persona.setSalon(stringToList(global.getIdSalon()));
         //id tipo persona
-        persona.setId(getPutExtra(savedInstanceState));
+        persona.setId(global.getIdTipoPerosna());
         persona.setNombre(dataz.get("et_nombres").toString());
         persona.setApellidos(dataz.get("et_apellidos").toString());
         persona.setCorreoElectronico(dataz.get("et_email").toString());
         persona.setTelefono(dataz.get("et_telefono").toString());
         persona.setFechaNacimiento(dataz.get("et_fechaNacimiento").toString());
+        global.setDocument(dataz.get("et_numeroDocumento").toString());
+        global.setContraseña(dataz.get("et_contraseña").toString());
         persona.setBarrio(dataz.get("et_barrio").toString());
         persona.setDireccion(dataz.get("et_direccion").toString());
         persona.setNombreResponsable(dataz.get("et_nombreResponsable").toString());
@@ -423,6 +484,8 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int w) {
                 globalIndex.setIdDocument(keysDocuement[w]);
+                ((EditText) v).setError(null);
+                v.clearFocus();
                 ((EditText) v).setText(valuesDocuement[w]);
                 dialogInterface.dismiss();
             }
@@ -448,6 +511,33 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         }
 
         return isEmpty;
+    }
+
+
+    private void showCustomDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.setContentView(R.layout.dialog_warning);
+        dialog.setCancelable(true);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+
+        ((AppCompatButton) dialog.findViewById(R.id.bt_close)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(RegistroUsuarioActivity.this, LoginActivity.class);
+                startActivity(myIntent);
+                //Toast.makeText(getApplicationContext(), ((AppCompatButton) v).getText().toString() + " Clicked", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
     }
 
 

@@ -12,4 +12,5 @@
     <string name="NEXT">Siguiente</string>
     <string name="BACK">Atras</string>
     <string name="tiltle_questions">AUTO REPORTE DE SALUD</string>
+    <string name="short_registrer_sucees">Por favor inicie sesión en la APP Control</string>
 </resources>
