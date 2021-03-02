@@ -24,10 +24,9 @@ public interface APIInterface {
 
     })
 
-    @GET("users")
-    Call<List<User>>getUsers();
 
-    @POST("users/login")
+
+    @POST("usuarios/login")
     Call<Login> sendLogin(@Body Login logins);
 
     @POST("institucion/existe")
