@@ -1,9 +1,11 @@
 package com.appcontrol.appcontroledu;
 
 
+import com.appcontrol.appcontroledu.activity.ReporteSaludActivity;
 import com.appcontrol.appcontroledu.data.Institucion;
 import com.appcontrol.appcontroledu.data.Login;
 import com.appcontrol.appcontroledu.data.Persona;
+import com.appcontrol.appcontroledu.data.ReporteSalud;
 import com.appcontrol.appcontroledu.data.Salon;
 import com.appcontrol.appcontroledu.data.User;
 import com.appcontrol.appcontroledu.data.Usuario;
@@ -20,9 +22,7 @@ import retrofit2.http.POST;
 public interface APIInterface {
 
     @Headers({
-
             "Content-type: application/json"
-
     })
 
 
@@ -41,6 +41,9 @@ public interface APIInterface {
 
     @POST("usuarios")
     Call<Usuario> sendUsuario(@Body Usuario usuarios);
+
+    @POST("autoreporte")
+    Call<ReporteSalud> sendReporte(@Body ReporteSalud reporte);
 
 }
 

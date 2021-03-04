@@ -42,9 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         final Button btn_iniciar = (Button) findViewById(R.id.btn_iniciar);
         final TextView tvSign_up = (TextView) findViewById(R.id.sign_up);
-        //mDisplayName = (TextInputEditText)findViewById(R.id.reg_display_name);
-        //TextInputEditText et_login = findViewById(R.id.et_login);
-        //TextInputEditText et_password = findViewById(R.id.et_password);
         apiInterface = APIClient.getClient().create(APIInterface.class);
         //metodo para llamar el formulario de perfil registro
         tvSign_up.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                     JsonObject myJson = response.body().getAsJsonObject();
                     Log.d("Json", " " + myJson.toString());
                     Intent myIntent = new Intent(LoginActivity.this, MenuPrincipalUserActivity.class);
+                    myIntent.putExtra("id", response.body().getAsJsonObject().getAsJsonObject("infoUser").getAsJsonArray("persona").get(0).getAsJsonObject().get("_id").toString().replace("\"",""));
                     myIntent.putExtra("myjson", myJson.toString());
                     startActivity(myIntent);
 

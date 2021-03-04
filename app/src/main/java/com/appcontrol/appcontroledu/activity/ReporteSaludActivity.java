@@ -2,20 +2,41 @@ package com.appcontrol.appcontroledu.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appcontrol.appcontroledu.APIClient;
+import com.appcontrol.appcontroledu.APIInterface;
 import com.appcontrol.appcontroledu.R;
+import com.appcontrol.appcontroledu.data.InfoUsuario;
+import com.appcontrol.appcontroledu.data.ReporteSalud;
+import com.appcontrol.appcontroledu.data.RespuestasItem;
+import com.appcontrol.appcontroledu.data.Usuario;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static java.security.AccessController.getContext;
 
 public class ReporteSaludActivity extends AppCompatActivity {
 
@@ -24,15 +45,9 @@ public class ReporteSaludActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView status;
     private TextView title;
-    String questions[] = {
-            "¿Tiene fiebre o la ha tenido en los últimos 14 días? , esto es, una temperatura mayor o igual a 38°C.",
-            "¿Tiene o ha tenido en los últimos 14 días dificultad respiratoria o algún otro síntoma respiratorio como tos. secreción nasal, pérdida del olfato?",
-            "¿Tiene o ha tenido en los últimos 14 días diarrea u otras molestias digestivas?",
-            "¿Tiene o ha tenido sensación de mucho cansancio o malestar en los últimos 14 días?",
-            "¿Ha notado una pérdida del sentido del gusto o del olfato en los últimos 14 días? ",
-            "¿Ha estado en contacto o conviviendo con alguna persona sospechosa o confirmada de coronavirus por COVID-19?",
-            "En caso de haber presentado infección por COVID 19: ¿sigue usted en aislamiento?"
-    };
+    private RadioGroup radioGroup;
+    List<RespuestasItem> respuestasItems = new ArrayList<>();
+    APIInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +57,27 @@ public class ReporteSaludActivity extends AppCompatActivity {
         initComponent();
     }
 
-
+    private HashMap<String, String> getQuestions(){
+        HashMap<String, String> questions = new HashMap<String, String>();
+        questions.put("6036c14edb966d180ccf086c","¿Tiene fiebre o la ha tenido en los últimos 14 días? , esto es, una temperatura mayor o igual a 38°C.");
+        questions.put("6036c167db966d180ccf086d","¿Tiene o ha tenido en los últimos 14 días dificultad respiratoria o algún otro síntoma respiratorio como tos. secreción nasal, pérdida del olfato?");
+        questions.put("6036c17adb966d180ccf086e","¿Tiene o ha tenido en los últimos 14 días diarrea u otras molestias digestivas?");
+        questions.put("6036c191db966d180ccf086f","¿Tiene o ha tenido sensación de mucho cansancio o malestar en los últimos 14 días?");
+        questions.put("6036c19edb966d180ccf0870","¿Ha notado una pérdida del sentido del gusto o del olfato en los últimos 14 días?");
+        questions.put("6036c1a9db966d180ccf0871","¿Ha estado en contacto o conviviendo con alguna persona sospechosa o confirmada de coronavirus por COVID-19?");
+        questions.put("6036c1b7db966d180ccf0872","En caso de haber presentado infección por COVID 19: ¿sigue usted en aislamiento?");
+        return questions;
+    }
 
     private void initComponent() {
         status = (TextView) findViewById(R.id.status);
         title = (TextView) findViewById(R.id.text_titulo_reporte);
         progressBar = (ProgressBar) findViewById(R.id.progress);
+        radioGroup = (RadioGroup) findViewById(R.id.answer);
         progressBar.setMax(MAX_STEP);
         progressBar.setProgress(current_step);
         progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-
+        apiInterface = APIClient.getClient().create(APIInterface.class);
         ((LinearLayout) findViewById(R.id.lyt_back)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,39 +94,103 @@ public class ReporteSaludActivity extends AppCompatActivity {
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         String str_title = getString(R.string.tiltle_questions) + "\n" + currentDate;
         title.setText(str_title);
-        //Genera preguntas para el reporte de auto Salud
-        status.setText(questions[current_step]);
+
+
+
     }
 
     private void nextStep(int progress) {
+        String[] valuesPregunta = getQuestions().values().toArray(new String[0]);
+        String[] keysPregunta = getQuestions().keySet().toArray(new String[0]);
+        boolean optionChecked = radioGroup.getCheckedRadioButtonId() == radioGroup.getChildAt(0).getId();
+        setRespuestas(keysPregunta,optionChecked);
         if (progress < MAX_STEP) {
             progress++;
             current_step = progress;
             ViewAnimation.fadeOutIn(status);
         }
+        else {
+            Gson gson = new Gson();
+            InfoUsuario persona = gson.fromJson(getIntent().getStringExtra("myjson"), InfoUsuario.class);
+            ReporteSalud reporteSalud = new ReporteSalud();
+            reporteSalud.setEstado(persona.getInfoUser().getEstado().get(0));
+            reporteSalud.setFecha(getDate());
+            reporteSalud.setPersona(getIntent().getStringExtra("id"));
+            reporteSalud.setRespuestas(respuestasItems);
+            PostReporteSalud(reporteSalud);
+        }
 
-        status.setText(questions[current_step]);
+
+
+        status.setText(valuesPregunta[current_step]);
         progressBar.setProgress(current_step);
     }
 
     private void backStep(int progress) {
+        String[] valuesPregunta = getQuestions().values().toArray(new String[0]);
         if (progress > 1) {
             progress--;
             current_step = progress;
             ViewAnimation.fadeOutIn(status);
         }
 
-        status.setText(questions[current_step]);
+        status.setText(valuesPregunta[current_step]);
         progressBar.setProgress(current_step);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        } else {
-            Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
-        }
-        return super.onOptionsItemSelected(item);
+    private List stringToList(String value){
+        List<String> list = new ArrayList<>();
+        list.add(value);
+        return list;
     }
+
+    private List booleanToList(boolean value){
+        List<Boolean> list = new ArrayList<>();
+        list.add(value);
+        return list;
+    }
+
+    private String getDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+
+    private void setRespuestas(String[] keysPregunta,Boolean optionChecked){
+        RespuestasItem respuestas = new RespuestasItem();
+        respuestas.setPregunta(keysPregunta[current_step]);
+        respuestas.setRespuesta(optionChecked);
+        respuestasItems.add(respuestas);
+    }
+
+    private void PostReporteSalud(ReporteSalud object) {
+        Call<ReporteSalud> call = apiInterface.sendReporte(object);
+        call.enqueue(new Callback<ReporteSalud>() {
+            @Override
+            public void onResponse(Call<ReporteSalud> call, Response<ReporteSalud> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "reporte enviado con existo", Toast.LENGTH_LONG).show();
+
+
+                } else {
+
+                    try {
+                        Toast.makeText(getApplicationContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ReporteSalud> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
+
 }

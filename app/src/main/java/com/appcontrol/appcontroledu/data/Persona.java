@@ -50,6 +50,10 @@ public class Persona{
 	@SerializedName("_id")
 	private String id;
 
+	@SerializedName("_id")
+	private String _id;
+
+
 	@SerializedName("telefono")
 	private String telefono;
 
@@ -201,5 +205,13 @@ public class Persona{
 
 	public List<String> getSalon(){
 		return salon;
+	}
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 }
