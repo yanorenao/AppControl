@@ -1,12 +1,16 @@
 package com.appcontrol.appcontroledu.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
@@ -16,6 +20,7 @@ import android.widget.Toast;
 import com.appcontrol.appcontroledu.APIClient;
 import com.appcontrol.appcontroledu.APIInterface;
 import com.appcontrol.appcontroledu.R;
+import com.appcontrol.appcontroledu.data.InfoReporteSalud;
 import com.appcontrol.appcontroledu.data.InfoUsuario;
 import com.appcontrol.appcontroledu.data.ReporteSalud;
 import com.appcontrol.appcontroledu.data.RespuestasItem;
@@ -57,15 +62,15 @@ public class ReporteSaludActivity extends AppCompatActivity {
         initComponent();
     }
 
-    private HashMap<String, String> getQuestions(){
+    private HashMap<String, String> getQuestions() {
         HashMap<String, String> questions = new HashMap<String, String>();
-        questions.put("6036c14edb966d180ccf086c","¿Tiene fiebre o la ha tenido en los últimos 14 días? , esto es, una temperatura mayor o igual a 38°C.");
-        questions.put("6036c167db966d180ccf086d","¿Tiene o ha tenido en los últimos 14 días dificultad respiratoria o algún otro síntoma respiratorio como tos. secreción nasal, pérdida del olfato?");
-        questions.put("6036c17adb966d180ccf086e","¿Tiene o ha tenido en los últimos 14 días diarrea u otras molestias digestivas?");
-        questions.put("6036c191db966d180ccf086f","¿Tiene o ha tenido sensación de mucho cansancio o malestar en los últimos 14 días?");
-        questions.put("6036c19edb966d180ccf0870","¿Ha notado una pérdida del sentido del gusto o del olfato en los últimos 14 días?");
-        questions.put("6036c1a9db966d180ccf0871","¿Ha estado en contacto o conviviendo con alguna persona sospechosa o confirmada de coronavirus por COVID-19?");
-        questions.put("6036c1b7db966d180ccf0872","En caso de haber presentado infección por COVID 19: ¿sigue usted en aislamiento?");
+        questions.put("6036c14edb966d180ccf086c", "¿Tiene fiebre o la ha tenido en los últimos 14 días? , esto es, una temperatura mayor o igual a 38°C.");
+        questions.put("6036c167db966d180ccf086d", "¿Tiene o ha tenido en los últimos 14 días dificultad respiratoria o algún otro síntoma respiratorio como tos. secreción nasal, pérdida del olfato?");
+        questions.put("6036c17adb966d180ccf086e", "¿Tiene o ha tenido en los últimos 14 días diarrea u otras molestias digestivas?");
+        questions.put("6036c191db966d180ccf086f", "¿Tiene o ha tenido sensación de mucho cansancio o malestar en los últimos 14 días?");
+        questions.put("6036c19edb966d180ccf0870", "¿Ha notado una pérdida del sentido del gusto o del olfato en los últimos 14 días?");
+        questions.put("6036c1a9db966d180ccf0871", "¿Ha estado en contacto o conviviendo con alguna persona sospechosa o confirmada de coronavirus por COVID-19?");
+        questions.put("6036c1b7db966d180ccf0872", "En caso de haber presentado infección por COVID 19: ¿sigue usted en aislamiento?");
         return questions;
     }
 
@@ -96,20 +101,18 @@ public class ReporteSaludActivity extends AppCompatActivity {
         title.setText(str_title);
 
 
-
     }
 
     private void nextStep(int progress) {
         String[] valuesPregunta = getQuestions().values().toArray(new String[0]);
         String[] keysPregunta = getQuestions().keySet().toArray(new String[0]);
         boolean optionChecked = radioGroup.getCheckedRadioButtonId() == radioGroup.getChildAt(0).getId();
-        setRespuestas(keysPregunta,optionChecked);
+        setRespuestas(keysPregunta, optionChecked);
         if (progress < MAX_STEP) {
             progress++;
             current_step = progress;
             ViewAnimation.fadeOutIn(status);
-        }
-        else {
+        } else {
             Gson gson = new Gson();
             InfoUsuario persona = gson.fromJson(getIntent().getStringExtra("myjson"), InfoUsuario.class);
             ReporteSalud reporteSalud = new ReporteSalud();
@@ -117,9 +120,10 @@ public class ReporteSaludActivity extends AppCompatActivity {
             reporteSalud.setFecha(getDate());
             reporteSalud.setPersona(getIntent().getStringExtra("id"));
             reporteSalud.setRespuestas(respuestasItems);
+            InfoReporteSalud existe = new InfoReporteSalud();
+            existe.setPersona(getIntent().getStringExtra("id"));
             PostReporteSalud(reporteSalud);
         }
-
 
 
         status.setText(valuesPregunta[current_step]);
@@ -137,26 +141,27 @@ public class ReporteSaludActivity extends AppCompatActivity {
         status.setText(valuesPregunta[current_step]);
         progressBar.setProgress(current_step);
     }
-    private List stringToList(String value){
+
+    private List stringToList(String value) {
         List<String> list = new ArrayList<>();
         list.add(value);
         return list;
     }
 
-    private List booleanToList(boolean value){
+    private List booleanToList(boolean value) {
         List<Boolean> list = new ArrayList<>();
         list.add(value);
         return list;
     }
 
-    private String getDate(){
+    private String getDate() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         return dateFormat.format(date);
     }
 
 
-    private void setRespuestas(String[] keysPregunta,Boolean optionChecked){
+    private void setRespuestas(String[] keysPregunta, Boolean optionChecked) {
         RespuestasItem respuestas = new RespuestasItem();
         respuestas.setPregunta(keysPregunta[current_step]);
         respuestas.setRespuesta(optionChecked);
@@ -169,7 +174,12 @@ public class ReporteSaludActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ReporteSalud> call, Response<ReporteSalud> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "reporte enviado con existo", Toast.LENGTH_LONG).show();
+                    if(response.body().getRespuestas() == null){
+                        showCustomDialogNurse();
+                    }
+                    else {
+                        showCustomDialog();
+                    }
 
 
                 } else {
@@ -190,6 +200,58 @@ public class ReporteSaludActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    private void showCustomDialog() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.setContentView(R.layout.dialog_info);
+        dialog.setCancelable(true);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+
+
+        ((AppCompatButton) dialog.findViewById(R.id.bt_close)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+    }
+
+    private void showCustomDialogNurse() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.setContentView(R.layout.dialog_nurse);
+        dialog.setCancelable(true);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+
+
+        ((AppCompatButton) dialog.findViewById(R.id.bt_close)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                //Toast.makeText(getApplicationContext(), ((AppCompatButton) v).getText().toString() + " Clicked", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
     }
 
 

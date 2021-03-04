@@ -2,6 +2,7 @@ package com.appcontrol.appcontroledu;
 
 
 import com.appcontrol.appcontroledu.activity.ReporteSaludActivity;
+import com.appcontrol.appcontroledu.data.InfoReporteSalud;
 import com.appcontrol.appcontroledu.data.Institucion;
 import com.appcontrol.appcontroledu.data.Login;
 import com.appcontrol.appcontroledu.data.Persona;
@@ -44,6 +45,9 @@ public interface APIInterface {
 
     @POST("autoreporte")
     Call<ReporteSalud> sendReporte(@Body ReporteSalud reporte);
+
+    @POST("autoreporte/existe")
+    Call<InfoReporteSalud> existReporte(@Body InfoReporteSalud infoReporteSalud);
 
 }
 
