@@ -59,6 +59,8 @@ public class MenuPrincipalUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(MenuPrincipalUserActivity.this, RegistroUsuarioActivity.class);
+                myIntent.putExtra("id", getIntent().getStringExtra("id"));
+                myIntent.putExtra("myjson", getIntent().getStringExtra("myjson"));
                 startActivity(myIntent);
 
             }
@@ -72,7 +74,7 @@ public class MenuPrincipalUserActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<InfoReporteSalud> call, Response<InfoReporteSalud> response) {
                 if (response.isSuccessful()) {
-                    if (true) {
+                    if (response.body().getPersona() == null) {
                         //response.body().getPersona() == null
                         Intent myIntent = new Intent(MenuPrincipalUserActivity.this, ReporteSaludActivity.class);
                         myIntent.putExtra("id", getIntent().getStringExtra("id"));

@@ -112,7 +112,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="Yeison A" />
+                android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="Noreña Osorio" />
+                android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -152,7 +152,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="yano56922@mail.com" />
+                android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -174,7 +174,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="083 2374 2342" />
+                android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -266,7 +266,7 @@
                         android:digits="1234567890"
                         android:paddingLeft="@dimen/spacing_middle"
                         android:paddingRight="@dimen/spacing_middle"
-                        android:text="6625" />
+                        android:text="" />
 
 
                 </LinearLayout>
@@ -322,7 +322,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="Milan" />
+                android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -342,7 +342,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="calle 1 b 34 23 a" />
+                android:text="" />
 
 
             <TextView
@@ -398,7 +398,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="Noreña Osorio" />
+                android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -418,7 +418,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="yano56922@mail.com" />
+                android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -440,7 +440,7 @@
                 android:paddingRight="@dimen/spacing_middle"
                 android:inputType="phone"
                 android:digits="1234567890"
-                android:text="083 2374 2342" />
+                android:text="" />
 
 
             <Button

@@ -31,6 +31,7 @@ import com.appcontrol.appcontroledu.APIClient;
 import com.appcontrol.appcontroledu.APIInterface;
 import com.appcontrol.appcontroledu.R;
 import com.appcontrol.appcontroledu.data.Globals;
+import com.appcontrol.appcontroledu.data.InfoUsuario;
 import com.appcontrol.appcontroledu.data.Institucion;
 import com.appcontrol.appcontroledu.data.Persona;
 import com.appcontrol.appcontroledu.data.Salon;
@@ -49,6 +50,8 @@ import retrofit2.Response;
 public class RegistroUsuarioActivity extends AppCompatActivity {
 
     APIInterface apiInterface;
+    HashMap<String, String> documento = new HashMap<String, String>();
+
 
 
     //EditText et_salon = (EditText)findViewById(R.id.et_salon);
@@ -64,8 +67,45 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         EditText et_nit = findViewById(R.id.et_nit);
         EditText et_salon = findViewById(R.id.et_salon);
         EditText et_documento = findViewById(R.id.et_tipoDocumento);
+        EditText et_nombres = findViewById(R.id.et_nombres);
+        EditText et_apellidos = findViewById(R.id.et_apellidos);
+        EditText et_email = findViewById(R.id.et_email);
+        EditText et_telefono = findViewById(R.id.et_telefono);
+        EditText et_numeroDocumento = findViewById(R.id.et_numeroDocumento);
+        EditText et_barrio = findViewById(R.id.et_barrio);
+        EditText et_direccion = findViewById(R.id.et_direccion);
+        EditText et_nombreResponsable = findViewById(R.id.et_nombreResponsable);
+        EditText et_apellidoResponsable = findViewById(R.id.et_apellidoResponsable);
+        EditText et_emailResponsable = findViewById(R.id.et_emailResponsable);
+        EditText et_TelefonoResponsable = findViewById(R.id.et_TelefonoResponsable);
+
 
         final Button btn_guardar = (Button) findViewById(R.id.bt_submit);
+        documento.put("6033d144738cb125f84770a3","TARJETA DE IDENTIDAD");
+        documento.put("6033d151738cb125f84770a4","CÉDULA DE CIUDADANÍA");
+        documento.put("6033d15d738cb125f84770a5","TARJETA DE EXTRANJERÍA");
+        documento.put("6033d166738cb125f84770a6","CÉDULA DE EXTRANJERÍA");
+
+        if(getIntent().getStringExtra("id") !=null){
+            Gson gson = new Gson();
+            InfoUsuario infoUsuario = gson.fromJson(getIntent().getStringExtra("myjson"), InfoUsuario.class);
+            et_salon.setText(documento.get(infoUsuario.getInfoUser().getPersona().get(0).getTipoDocumento().get(0)));
+            et_nombres.setText(infoUsuario.getInfoUser().getPersona().get(0).getNombres());
+            et_apellidos.setText(infoUsuario.getInfoUser().getPersona().get(0).getApellidos());
+            et_email.setText(infoUsuario.getInfoUser().getPersona().get(0).getCorreoElectronico());
+            et_telefono.setText(infoUsuario.getInfoUser().getPersona().get(0).getTelefono());
+            et_fechaNacimiento.setText(infoUsuario.getInfoUser().getPersona().get(0).getFechaNacimiento().substring(0,10));
+            //tipo de documento
+            et_numeroDocumento.setText(infoUsuario.getInfoUser().getUsuario());
+            et_barrio.setText(infoUsuario.getInfoUser().getPersona().get(0).getBarrio());
+            et_direccion.setText(infoUsuario.getInfoUser().getPersona().get(0).getDireccion());
+            et_nombreResponsable.setText(infoUsuario.getInfoUser().getPersona().get(0).getNombreResponsable());
+            et_apellidoResponsable.setText(infoUsuario.getInfoUser().getPersona().get(0).getApellidoResponsable());
+            et_emailResponsable.setText(infoUsuario.getInfoUser().getPersona().get(0).getEmailResponsable());
+            et_TelefonoResponsable.setText(infoUsuario.getInfoUser().getPersona().get(0).getTelefono());
+
+
+        }
 
         et_salon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,11 +152,6 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         et_documento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String, String> documento = new HashMap<String, String>();
-                documento.put("6033d144738cb125f84770a3","TARJETA DE IDENTIDAD");
-                documento.put("6033d151738cb125f84770a4","CÉDULA DE CIUDADANÍA");
-                documento.put("6033d15d738cb125f84770a5","TARJETA DE EXTRANJERÍA");
-                documento.put("6033d166738cb125f84770a6","CÉDULA DE EXTRANJERÍA");
                 String[] valuesDocuement = documento.values().toArray(new String[0]);
                 String[] keysDocuement = documento.keySet().toArray(new String[0]);
                 showStateDialogDocument(v,valuesDocuement,keysDocuement);

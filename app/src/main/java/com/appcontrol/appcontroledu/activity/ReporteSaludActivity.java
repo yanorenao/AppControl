@@ -245,7 +245,6 @@ public class ReporteSaludActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                //Toast.makeText(getApplicationContext(), ((AppCompatButton) v).getText().toString() + " Clicked", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
