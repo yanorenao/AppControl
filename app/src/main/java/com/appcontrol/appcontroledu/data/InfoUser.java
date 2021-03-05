@@ -1,15 +1,53 @@
 package com.appcontrol.appcontroledu.data;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class InfoUser{
+
+	@SerializedName("infoUser")
+	private InfoUser infoUser;
+
+	@SerializedName("token")
+	private String token;
+
+	@SerializedName("estado")
 	private List<String> estado;
+
+	@SerializedName("clave")
 	private String clave;
+
+	@SerializedName("persona")
 	private List<PersonaItem> persona;
+
+	@SerializedName("__v")
 	private int V;
+
+	@SerializedName("tipoUsuario")
 	private List<TipoUsuarioItem> tipoUsuario;
+
+	@SerializedName("usuario")
 	private String usuario;
+
+	@SerializedName("_id")
 	private String id;
+
+	public void setInfoUser(InfoUser infoUser){
+		this.infoUser = infoUser;
+	}
+
+	public InfoUser getInfoUser(){
+		return infoUser;
+	}
+
+	public void setToken(String token){
+		this.token = token;
+	}
+
+	public String getToken(){
+		return token;
+	}
 
 	public void setEstado(List<String> estado){
 		this.estado = estado;

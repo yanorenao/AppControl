@@ -1,26 +1,63 @@
 package com.appcontrol.appcontroledu.data;
 
 import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class PersonaItem{
+
+	@SerializedName("apellidos")
 	private String apellidos;
+
+	@SerializedName("telefonoResponsable")
 	private String telefonoResponsable;
+
+	@SerializedName("estado")
 	private List<String> estado;
+
+	@SerializedName("barrio")
 	private String barrio;
+
+	@SerializedName("fechaNacimiento")
 	private String fechaNacimiento;
+
+	@SerializedName("institucion")
 	private List<String> institucion;
+
+	@SerializedName("direccion")
 	private String direccion;
+
+	@SerializedName("isUsed")
 	private boolean isUsed;
+
+	@SerializedName("nombres")
 	private String nombres;
-	private List<String> tipoDocumento;
+
+	@SerializedName("tipoDocumento")
+	private List<TipoDocumentoItem> tipoDocumento;
+
+	@SerializedName("nombreResponsable")
 	private String nombreResponsable;
+
+	@SerializedName("apellidoResponsable")
 	private String apellidoResponsable;
+
+	@SerializedName("__v")
 	private int V;
+
+	@SerializedName("emailResponsable")
 	private String emailResponsable;
+
+	@SerializedName("_id")
 	private String id;
+
+	@SerializedName("telefono")
 	private String telefono;
+
+	@SerializedName("correoElectronico")
 	private String correoElectronico;
-	private List<String> salon;
+
+	@SerializedName("salon")
+	private List<SalonItem> salon;
 
 	public void setApellidos(String apellidos){
 		this.apellidos = apellidos;
@@ -94,11 +131,11 @@ public class PersonaItem{
 		return nombres;
 	}
 
-	public void setTipoDocumento(List<String> tipoDocumento){
+	public void setTipoDocumento(List<TipoDocumentoItem> tipoDocumento){
 		this.tipoDocumento = tipoDocumento;
 	}
 
-	public List<String> getTipoDocumento(){
+	public List<TipoDocumentoItem> getTipoDocumento(){
 		return tipoDocumento;
 	}
 
@@ -158,11 +195,11 @@ public class PersonaItem{
 		return correoElectronico;
 	}
 
-	public void setSalon(List<String> salon){
+	public void setSalon(List<SalonItem> salon){
 		this.salon = salon;
 	}
 
-	public List<String> getSalon(){
+	public List<SalonItem> getSalon(){
 		return salon;
 	}
 }

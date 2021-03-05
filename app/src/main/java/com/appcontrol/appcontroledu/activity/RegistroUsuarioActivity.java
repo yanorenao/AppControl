@@ -89,13 +89,13 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         if(getIntent().getStringExtra("id") !=null){
             Gson gson = new Gson();
             InfoUsuario infoUsuario = gson.fromJson(getIntent().getStringExtra("myjson"), InfoUsuario.class);
-            et_salon.setText(documento.get(infoUsuario.getInfoUser().getPersona().get(0).getTipoDocumento().get(0)));
+            et_salon.setText(infoUsuario.getInfoUser().getPersona().get(0).getSalon().get(0).getNombre());
             et_nombres.setText(infoUsuario.getInfoUser().getPersona().get(0).getNombres());
             et_apellidos.setText(infoUsuario.getInfoUser().getPersona().get(0).getApellidos());
             et_email.setText(infoUsuario.getInfoUser().getPersona().get(0).getCorreoElectronico());
             et_telefono.setText(infoUsuario.getInfoUser().getPersona().get(0).getTelefono());
             et_fechaNacimiento.setText(infoUsuario.getInfoUser().getPersona().get(0).getFechaNacimiento().substring(0,10));
-            //tipo de documento
+            et_documento.setText(infoUsuario.getInfoUser().getPersona().get(0).getTipoDocumento().get(0).getNombre());
             et_numeroDocumento.setText(infoUsuario.getInfoUser().getUsuario());
             et_barrio.setText(infoUsuario.getInfoUser().getPersona().get(0).getBarrio());
             et_direccion.setText(infoUsuario.getInfoUser().getPersona().get(0).getDireccion());

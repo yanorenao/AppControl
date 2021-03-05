@@ -2,7 +2,7 @@ package com.appcontrol.appcontroledu.data;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TipoUsuarioItem{
+public class TipoDocumentoItem{
 
 	@SerializedName("estado")
 	private int estado;
