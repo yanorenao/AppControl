@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.appcontrol.appcontroledu.APIClient;
 import com.appcontrol.appcontroledu.APIInterface;
@@ -34,6 +35,7 @@ import com.appcontrol.appcontroledu.data.Globals;
 import com.appcontrol.appcontroledu.data.InfoUsuario;
 import com.appcontrol.appcontroledu.data.Institucion;
 import com.appcontrol.appcontroledu.data.Persona;
+import com.appcontrol.appcontroledu.data.PutPersona;
 import com.appcontrol.appcontroledu.data.Salon;
 import com.appcontrol.appcontroledu.data.Usuario;
 import com.google.gson.Gson;
@@ -51,7 +53,8 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
     APIInterface apiInterface;
     HashMap<String, String> documento = new HashMap<String, String>();
-
+    String institucion = "";
+    String salon = "";
 
 
     //EditText et_salon = (EditText)findViewById(R.id.et_salon);
@@ -61,7 +64,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_usuario);
-        Globals globalIndex = ((Globals)getApplicationContext());
+        Globals globalIndex = ((Globals) getApplicationContext());
         apiInterface = APIClient.getClient().create(APIInterface.class);
         EditText et_fechaNacimiento = findViewById(R.id.et_fechaNacimiento);
         EditText et_nit = findViewById(R.id.et_nit);
@@ -81,12 +84,12 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
 
         final Button btn_guardar = (Button) findViewById(R.id.bt_submit);
-        documento.put("6033d144738cb125f84770a3","TARJETA DE IDENTIDAD");
-        documento.put("6033d151738cb125f84770a4","CÉDULA DE CIUDADANÍA");
-        documento.put("6033d15d738cb125f84770a5","TARJETA DE EXTRANJERÍA");
-        documento.put("6033d166738cb125f84770a6","CÉDULA DE EXTRANJERÍA");
+        documento.put("6033d144738cb125f84770a3", "TARJETA DE IDENTIDAD");
+        documento.put("6033d151738cb125f84770a4", "CÉDULA DE CIUDADANÍA");
+        documento.put("6033d15d738cb125f84770a5", "TARJETA DE EXTRANJERÍA");
+        documento.put("6033d166738cb125f84770a6", "CÉDULA DE EXTRANJERÍA");
 
-        if(getIntent().getStringExtra("id") !=null){
+        if (getIntent().getStringExtra("id") != null) {
             Gson gson = new Gson();
             InfoUsuario infoUsuario = gson.fromJson(getIntent().getStringExtra("myjson"), InfoUsuario.class);
             et_salon.setText(infoUsuario.getInfoUser().getPersona().get(0).getSalon().get(0).getNombre());
@@ -94,7 +97,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             et_apellidos.setText(infoUsuario.getInfoUser().getPersona().get(0).getApellidos());
             et_email.setText(infoUsuario.getInfoUser().getPersona().get(0).getCorreoElectronico());
             et_telefono.setText(infoUsuario.getInfoUser().getPersona().get(0).getTelefono());
-            et_fechaNacimiento.setText(infoUsuario.getInfoUser().getPersona().get(0).getFechaNacimiento().substring(0,10));
+            et_fechaNacimiento.setText(infoUsuario.getInfoUser().getPersona().get(0).getFechaNacimiento().substring(0, 10));
             et_documento.setText(infoUsuario.getInfoUser().getPersona().get(0).getTipoDocumento().get(0).getNombre());
             et_numeroDocumento.setText(infoUsuario.getInfoUser().getUsuario());
             et_barrio.setText(infoUsuario.getInfoUser().getPersona().get(0).getBarrio());
@@ -103,6 +106,8 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             et_apellidoResponsable.setText(infoUsuario.getInfoUser().getPersona().get(0).getApellidoResponsable());
             et_emailResponsable.setText(infoUsuario.getInfoUser().getPersona().get(0).getEmailResponsable());
             et_TelefonoResponsable.setText(infoUsuario.getInfoUser().getPersona().get(0).getTelefono());
+            institucion = infoUsuario.getInfoUser().getPersona().get(0).getInstitucion().get(0);
+            salon = infoUsuario.getInfoUser().getPersona().get(0).getSalon().get(0).getId();
 
 
         }
@@ -110,29 +115,22 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         et_salon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String Name= et_nit.getText().toString();
-                final String word= et_nit.getText().toString();
-                if(Name.length()==0)
-                {
+                final String Name = et_nit.getText().toString();
+                final String word = et_nit.getText().toString();
+                if (Name.length() == 0) {
                     et_nit.requestFocus();
                     et_nit.setError("El campo Nit no puede estar vacío");
 
-                }
-                else if(!Name.matches("(^[0-9]+-{1}[0-9]{1})"))
-                {
+                } else if (!Name.matches("(^[0-9]+-{1}[0-9]{1})")) {
                     et_nit.requestFocus();
                     et_nit.setError("Solo se permite numero y guion ");
 
 
-                }
-                else if(word.length()==0)
-                {
+                } else if (word.length() == 0) {
                     et_nit.requestFocus();
                     et_nit.setError("El campo Nit no puede estar vacío");
 
-                }
-                else
-                {
+                } else {
                     existsInstitution(et_nit.getText().toString());
                 }
             }
@@ -154,10 +152,9 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String[] valuesDocuement = documento.values().toArray(new String[0]);
                 String[] keysDocuement = documento.keySet().toArray(new String[0]);
-                showStateDialogDocument(v,valuesDocuement,keysDocuement);
+                showStateDialogDocument(v, valuesDocuement, keysDocuement);
 
                 Log.d("retrofit", " documento: " + globalIndex.getIdDocument() + " salones: " + globalIndex.getIdSalon() + " Institucion:" + globalIndex.getIdInstitucion());
-
 
 
             }
@@ -172,38 +169,35 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             }
         });
 
-        btn_guardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(!validateEditText(idsEditText()))
-                {
-                    //if not empty do something
-                    globalIndex.setIdTipoPerosna(getPutExtra(savedInstanceState));
-                    PostPersona(getValuesPersona());
-                    //HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
-                    //Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    //String json = gson.toJson(getValueUsuario());// obj is your objectjosn
-                    //Log.d("Json",json);
 
 
+            btn_guardar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if ((getIntent().getStringExtra("id") == null)) {
+                        if (!validateEditText(idsEditText())) {
+                            globalIndex.setIdTipoPerosna(getPutExtra(savedInstanceState));
+                            PostPersona(getValuesPersona());
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Por favor valide el ingreso de la información.", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
 
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        //Log.d("perosna",persona);
+                        PutPersona personas = getPutValuesPersona();
+                        PutPersonas(personas);
+                        String json = gson.toJson(personas);// obj is your objectjosn
+                        Log.d("Json",json);
+                        Toast.makeText(getApplicationContext(),"modificar perfil",Toast.LENGTH_SHORT).show();
+                    }
 
-                    //PostPersona(createPersona(savedInstanceState));
-                }else{
-                    Toast.makeText(getApplicationContext(), "Por favor valide el ingreso de la información.", Toast.LENGTH_LONG).show();
                 }
-                //GetAllSalon("1");
+            });
 
-                //existsInstitution(et_nit.getText().toString());
-                //getPutExtra(savedInstanceState);
-                //Toast.makeText(getApplicationContext(), getPutExtra(savedInstanceState), Toast.LENGTH_LONG).show();
-
-
-            }
-        });
 
     }
+
 
     private void existsInstitution(String nit) {
         Institucion institucion = new Institucion();
@@ -212,8 +206,8 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         call.enqueue(new Callback<Institucion>() {
             @Override
             public void onResponse(Call<Institucion> call, Response<Institucion> response) {
-                Globals globalIndex = ((Globals)getApplicationContext());
-                EditText et_salon = (EditText)findViewById(R.id.et_salon);
+                Globals globalIndex = ((Globals) getApplicationContext());
+                EditText et_salon = (EditText) findViewById(R.id.et_salon);
                 et_salon.setTextColor(Color.parseColor("#ffffff"));
                 et_salon.setText(response.body().getId());
                 GetAllSalon(response.body().getId());
@@ -226,11 +220,25 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Por favor contacte al administrador Nit no registrado.", Toast.LENGTH_LONG).show();
 
 
-
             }
         });
 
 
+    }
+
+    private void PutPersonas(PutPersona object) {
+        Call<PutPersona> call = apiInterface.sendPutPersona(object);
+        call.enqueue(new Callback<PutPersona>() {
+            @Override
+            public void onResponse(Call<PutPersona> call, Response<PutPersona> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<PutPersona> call, Throwable t) {
+
+            }
+        });
     }
 
     private void PostUsuario(Usuario object) {
@@ -253,7 +261,6 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                 }
 
 
-
             }
 
             @Override
@@ -270,14 +277,13 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Persona> call, Response<Persona> response) {
 
-                Globals globalIdPersona = ((Globals)getApplicationContext());
+                Globals globalIdPersona = ((Globals) getApplicationContext());
                 globalIdPersona.setIdPersona(response.body().getId());
                 //HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
                 //Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 //String json = gson.toJson(getValuesUsuario());// obj is your objectjosn
                 //Log.d("Json",json);
                 PostUsuario(getValuesUsuario());
-
 
 
             }
@@ -292,9 +298,10 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
     }
 
-    private int[]  idsEditText(){
+    private int[] idsEditText() {
         int[] ids = new int[]
                 {
+                        R.id.et_salon,
                         R.id.et_nombres,
                         R.id.et_apellidos,
                         R.id.et_apellidos,
@@ -316,26 +323,26 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         return ids;
     }
 
-    private List stringToList(String value){
+    private List stringToList(String value) {
         List<String> list = new ArrayList<>();
         list.add(value);
         return list;
     }
 
-    private HashMap getValuesEditext(int[] ids){
+    private HashMap getValuesEditext(int[] ids) {
         HashMap<String, String> registros = new HashMap<String, String>();
-        for(int id : ids){
+        for (int id : ids) {
             EditText t = findViewById(id);
             String key = t.getResources().getResourceEntryName(t.getId());
-            registros.put(key,t.getText().toString());
+            registros.put(key, t.getText().toString());
         }
         return registros;
     }
 
     //
 
-    private Usuario getValuesUsuario(){
-        Globals global = ((Globals)getApplicationContext());
+    private Usuario getValuesUsuario() {
+        Globals global = ((Globals) getApplicationContext());
         HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
         Usuario usuario = new Usuario();
         usuario.setPersona(stringToList(global.getIdPersona()));
@@ -347,8 +354,8 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
     }
 
-    private Persona getValuesPersona(){
-        Globals global = ((Globals)getApplicationContext());
+    private Persona getValuesPersona() {
+        Globals global = ((Globals) getApplicationContext());
         HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
         Persona persona = new Persona();
         persona.setTipoDocumento(stringToList(global.getIdDocument()));
@@ -375,8 +382,47 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
     }
 
 
+    public static Object getKeyFromValue(Map hm, Object value) {
+        for (Object o : hm.keySet()) {
+            if (hm.get(o).equals(value)) {
+                return o;
+            }
+        }
+        return null;
+    }
+
+
+    private PutPersona getPutValuesPersona() {
+        Globals global = ((Globals) getApplicationContext());
+        HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
+        PutPersona persona = new PutPersona();
+        //id tipo persona
+        persona.setIdPersona(getIntent().getStringExtra("id"));
+        String tipoDocumento = dataz.get("et_tipoDocumento").toString();
+        persona.setNombre(dataz.get("et_nombres").toString());
+        persona.setApellidos(dataz.get("et_apellidos").toString());
+        persona.setCorreoElectronico(dataz.get("et_email").toString());
+        persona.setTelefono(dataz.get("et_telefono").toString());
+        persona.setFechaNacimiento(dataz.get("et_fechaNacimiento").toString());
+        global.setDocument(dataz.get("et_numeroDocumento").toString());
+        global.setContraseña(dataz.get("et_contraseña").toString());
+        persona.setBarrio(dataz.get("et_barrio").toString());
+        persona.setDireccion(dataz.get("et_direccion").toString());
+        persona.setNombreResponsable(dataz.get("et_nombreResponsable").toString());
+        persona.setApellidoResponsable(dataz.get("et_apellidoResponsable").toString());
+        persona.setEmailResponsable(dataz.get("et_emailResponsable").toString());
+        persona.setTelefonoResponsable(dataz.get("et_TelefonoResponsable").toString());
+        persona.setIsUsed("true");
+        persona.setEstado("6033d0cc738cb125f8477099");
+        persona.setTipoDocumento(getKeyFromValue(documento,tipoDocumento).toString());
+        persona.setInstitucion(institucion);
+        persona.setSalon(salon);
+        return persona;
+    }
+
+
     private void GetAllSalon(String idInstitucion) {
-        Globals globalIndex = ((Globals)getApplicationContext());
+        Globals globalIndex = ((Globals) getApplicationContext());
         globalIndex.setIdInstitucion(idInstitucion);
         Salon salon = new Salon();
         salon.setInstitucion(idInstitucion);
@@ -384,28 +430,24 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Salon>>() {
             @Override
             public void onResponse(Call<List<Salon>> call, Response<List<Salon>> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     List<Salon> posts = response.body();
                     HashMap<String, String> aulas = new HashMap<String, String>();
 
                     for (Salon post : posts) {
 
-                        aulas.put(post.getId(),post.getNombre());
+                        aulas.put(post.getId(), post.getNombre());
                         Log.d("retrofit", "HasMap: " + aulas.values().toArray());
                     }
 
-                    Globals globalIndex = ((Globals)getApplicationContext());
+                    Globals globalIndex = ((Globals) getApplicationContext());
                     String[] values = aulas.values().toArray(new String[0]);
                     String[] keys = aulas.keySet().toArray(new String[0]);
-                    showStateDialog(values,keys);
+                    showStateDialog(values, keys);
 
 
-
-
-
-                }
-                else {
+                } else {
                     Log.d("retrofit", "erorrrrrr");
                 }
 
@@ -454,18 +496,18 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
     }
 
 
-    public String getPutExtra(Bundle savedInstanceState){
+    public String getPutExtra(Bundle savedInstanceState) {
         String newString;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                newString= null;
+            if (extras == null) {
+                newString = null;
             } else {
-                newString= extras.getString("tipoUsuario");
+                newString = extras.getString("tipoUsuario");
 
             }
         } else {
-            newString= (String) savedInstanceState.getSerializable("tipoUsuario");
+            newString = (String) savedInstanceState.getSerializable("tipoUsuario");
 
         }
         return newString;
@@ -474,8 +516,8 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
     // validar Nit colombia
     public static int calcularDigito(@NotNull String nit) {
         int digito = 0, acum = 0, residuo = 0;
-        char [] nit_array = nit.toCharArray();
-        int [] primos = {3, 7, 13, 17, 19, 23, 29, 37, 41, 43, 47, 53, 39, 67, 71};
+        char[] nit_array = nit.toCharArray();
+        int[] primos = {3, 7, 13, 17, 19, 23, 29, 37, 41, 43, 47, 53, 39, 67, 71};
         int max = nit_array.length;
 
         for (int i = 0; i < nit.length(); i++) {
@@ -493,8 +535,8 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         return digito;
     }
 
-    private void showStateDialog(String[]values,String[]keys) {
-        Globals globalIndex = ((Globals)getApplicationContext());
+    private void showStateDialog(String[] values, String[] keys) {
+        Globals globalIndex = ((Globals) getApplicationContext());
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Salas");
         builder.setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
@@ -511,11 +553,11 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
     }
 
 
-    private String showStateDialogDocument(final View v, String[]valuesDocuement,String[]keysDocuement) {
-        Globals globalIndex = ((Globals)getApplicationContext());
+    private String showStateDialogDocument(final View v, String[] valuesDocuement, String[] keysDocuement) {
+        Globals globalIndex = ((Globals) getApplicationContext());
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
         builder2.setTitle("Documento");
-        builder2.setSingleChoiceItems(valuesDocuement,-1, new DialogInterface.OnClickListener() {
+        builder2.setSingleChoiceItems(valuesDocuement, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int w) {
                 globalIndex.setIdDocument(keysDocuement[w]);
@@ -530,15 +572,13 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         return keysDocuement[globalIndex.getMyIndex()];
     }
 
-    public boolean validateEditText(int[] ids){
+    public boolean validateEditText(int[] ids) {
         boolean isEmpty = false;
 
-        for(int id: ids)
-        {
-            EditText et = (EditText)findViewById(id);
+        for (int id : ids) {
+            EditText et = (EditText) findViewById(id);
 
-            if(TextUtils.isEmpty(et.getText().toString()))
-            {
+            if (TextUtils.isEmpty(et.getText().toString())) {
                 et.requestFocus();
                 et.setError("Ingresa un valor.");
                 isEmpty = true;

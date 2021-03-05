@@ -6,6 +6,7 @@ import com.appcontrol.appcontroledu.data.InfoReporteSalud;
 import com.appcontrol.appcontroledu.data.Institucion;
 import com.appcontrol.appcontroledu.data.Login;
 import com.appcontrol.appcontroledu.data.Persona;
+import com.appcontrol.appcontroledu.data.PutPersona;
 import com.appcontrol.appcontroledu.data.ReporteSalud;
 import com.appcontrol.appcontroledu.data.Salon;
 import com.appcontrol.appcontroledu.data.User;
@@ -19,6 +20,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface APIInterface {
 
@@ -39,6 +41,8 @@ public interface APIInterface {
 
     @POST("persona")
     Call<Persona> sendPersona(@Body Persona personas);
+    @PUT("persona")
+    Call<PutPersona> sendPutPersona(@Body PutPersona personas);
 
     @POST("usuarios")
     Call<Usuario> sendUsuario(@Body Usuario usuarios);
