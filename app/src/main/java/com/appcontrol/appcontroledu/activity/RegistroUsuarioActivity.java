@@ -189,7 +189,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                         PutPersonas(personas);
                         String json = gson.toJson(personas);// obj is your objectjosn
                         Log.d("Json",json);
-                        Toast.makeText(getApplicationContext(),"modificar perfil",Toast.LENGTH_SHORT).show();
+
                     }
 
                 }
@@ -232,10 +232,25 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PutPersona> call, Response<PutPersona> response) {
 
+                if (response.isSuccessful()) {
+                    showCustomDialogUpdate();
+
+                } else {
+
+                    try {
+                        Toast.makeText(getApplicationContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
 
             @Override
             public void onFailure(Call<PutPersona> call, Throwable t) {
+                Log.d("error", t.getMessage());
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
 
             }
         });
@@ -593,6 +608,32 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
         dialog.setContentView(R.layout.dialog_warning);
+        dialog.setCancelable(true);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+
+        ((AppCompatButton) dialog.findViewById(R.id.bt_close)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(RegistroUsuarioActivity.this, LoginActivity.class);
+                startActivity(myIntent);
+                //Toast.makeText(getApplicationContext(), ((AppCompatButton) v).getText().toString() + " Clicked", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+    }
+
+    private void showCustomDialogUpdate() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.setContentView(R.layout.dialog_update);
         dialog.setCancelable(true);
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
