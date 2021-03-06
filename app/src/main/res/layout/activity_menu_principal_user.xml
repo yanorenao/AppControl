@@ -35,7 +35,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bienvenido App Control"               android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:text="App \nControl"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@android:color/white" />
 
         </LinearLayout>

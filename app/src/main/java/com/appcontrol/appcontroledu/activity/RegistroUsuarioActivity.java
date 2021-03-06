@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -197,6 +199,9 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
 
     private void existsInstitution(String nit) {

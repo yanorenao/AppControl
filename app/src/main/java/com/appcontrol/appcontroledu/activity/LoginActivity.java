@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         final Button btn_iniciar = (Button) findViewById(R.id.btn_iniciar);
         final TextView tvSign_up = (TextView) findViewById(R.id.sign_up);
         apiInterface = APIClient.getClient().create(APIInterface.class);
