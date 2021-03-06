@@ -40,6 +40,9 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_principal);
         CardView cardView_reportarSalud = (CardView) findViewById(R.id.reportar_salud);
         CardView cardView_modificaPerfil = (CardView) findViewById(R.id.modificar_perfil);
+        CardView cardView_aceptarPerfil = (CardView) findViewById(R.id.aceptar_perfil);
+        CardView cardView_reportes = (CardView) findViewById(R.id.ver_reportes);
+        CardView cardView_info_institucion = (CardView) findViewById(R.id.info_institucion);
         apiInterface = APIClient.getClient().create(APIInterface.class);
         initToolbar();
 
@@ -58,6 +61,39 @@ public class MenuPrincipalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(MenuPrincipalActivity.this, RegistroUsuarioActivity.class);
+                myIntent.putExtra("id", getIntent().getStringExtra("id"));
+                myIntent.putExtra("myjson", getIntent().getStringExtra("myjson"));
+                startActivity(myIntent);
+
+            }
+        });
+
+        cardView_aceptarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MenuPrincipalActivity.this, AceptarPrefilesActivity.class);
+                myIntent.putExtra("id", getIntent().getStringExtra("id"));
+                myIntent.putExtra("myjson", getIntent().getStringExtra("myjson"));
+                startActivity(myIntent);
+
+            }
+        });
+
+        cardView_reportes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MenuPrincipalActivity.this, VerReportesActivity.class);
+                myIntent.putExtra("id", getIntent().getStringExtra("id"));
+                myIntent.putExtra("myjson", getIntent().getStringExtra("myjson"));
+                startActivity(myIntent);
+
+            }
+        });
+
+        cardView_info_institucion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MenuPrincipalActivity.this, InformacionInstitucionActivity.class);
                 myIntent.putExtra("id", getIntent().getStringExtra("id"));
                 myIntent.putExtra("myjson", getIntent().getStringExtra("myjson"));
                 startActivity(myIntent);

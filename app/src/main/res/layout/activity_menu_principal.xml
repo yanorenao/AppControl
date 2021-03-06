@@ -161,8 +161,10 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/aceptar_perfil"
                     android:layout_width="135dp"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:visibility="visible"
                     app:cardCornerRadius="4dp"
                     app:cardElevation="2dp"
@@ -172,13 +174,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
                         android:orientation="vertical"
                         android:padding="@dimen/spacing_large">
 
                         <ImageView
                             android:layout_width="45dp"
                             android:layout_height="45dp"
+
                             android:tint="@color/lime_600"
                             app:srcCompat="@drawable/imc_user" />
 
@@ -187,7 +189,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="@dimen/spacing_medium"
-                            android:text="Reportar Perfiles"
+                            android:text="Aceptar Perfil"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/grey_80"
                             app:fontFamily="sans-serif-medium" />
@@ -201,8 +203,10 @@
                     android:layout_height="0dp" />
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/ver_reportes"
                     android:layout_width="135dp"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:visibility="visible"
                     app:cardCornerRadius="4dp"
                     app:cardElevation="2dp"
@@ -212,21 +216,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
                         android:orientation="vertical"
                         android:padding="@dimen/spacing_large">
 
                         <ImageView
                             android:layout_width="45dp"
                             android:layout_height="45dp"
+
                             android:tint="@color/lime_600"
-                            app:srcCompat="@drawable/imc_report" />
+                            app:srcCompat="@drawable/imc_report"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
-                            android:minLines="2"
                             android:layout_marginBottom="@dimen/spacing_medium"
                             android:text="Ver Reportes"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -239,8 +242,10 @@
 
             </LinearLayout>
             <androidx.cardview.widget.CardView
+                android:id="@+id/info_institucion"
                 android:layout_width="135dp"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:visibility="visible"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="2dp"
@@ -250,15 +255,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
                     android:orientation="vertical"
                     android:padding="@dimen/spacing_large">
 
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
+
                         android:tint="@color/lime_600"
-                        app:srcCompat="@drawable/institucion" />
+                        app:srcCompat="@drawable/institucion"/>
 
                     <TextView
                         android:layout_width="wrap_content"
