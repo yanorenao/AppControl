@@ -27,13 +27,8 @@
         <activity android:name=".activity.AlertActivity">
         </activity>
         <activity android:name=".activity.ReporteSaludActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".activity.MenuPrincipalUserActivity"
-            >
+        <activity android:name=".activity.MenuPrincipalUserActivity" >
         </activity>
         <activity android:name=".activity.MenuPrincipalActivity">
         </activity>
