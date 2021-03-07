@@ -37,8 +37,13 @@ public class RegisterAdapter extends RecyclerView.Adapter<RegisterAdapter.ViewHo
         Contact contact = mContacts.get(position);
 
         // Set item views based on your views and data model
-        TextView textView = holder.nameTextView;
-        textView.setText(contact.getName());
+        TextView nameTextView = holder.nameTextView;
+        TextView tipoUsurarioTextView = holder.tipoUsurarioTextView;
+        TextView tipoUsurarioSalon = holder.tipoUsurarioSalon;
+
+        nameTextView.setText(contact.getName());
+        tipoUsurarioTextView.setText(contact.getTipoUsurario());
+        tipoUsurarioSalon.setText(contact.getTipoUSalon());
         Button button = holder.aceptarButton;
         Button button2 = holder.rechazarButton;
 
@@ -56,6 +61,8 @@ public class RegisterAdapter extends RecyclerView.Adapter<RegisterAdapter.ViewHo
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public TextView nameTextView;
+        public TextView tipoUsurarioTextView;
+        public TextView tipoUsurarioSalon;
         public Button aceptarButton;
         public Button rechazarButton;
 
@@ -66,7 +73,9 @@ public class RegisterAdapter extends RecyclerView.Adapter<RegisterAdapter.ViewHo
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            nameTextView = (TextView) itemView.findViewById(R.id.description);
+            nameTextView = (TextView) itemView.findViewById(R.id.name);
+            tipoUsurarioTextView = (TextView) itemView.findViewById(R.id.tipoUsurarioTextView);
+            tipoUsurarioSalon = (TextView) itemView.findViewById(R.id.tipoUsurarioSalon);
             aceptarButton = (Button) itemView.findViewById(R.id.button_aceptar);
             rechazarButton = (Button) itemView.findViewById(R.id.button_rechazar);
         }

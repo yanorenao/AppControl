@@ -63,9 +63,8 @@ android:orientation="horizontal">
             android:text="People Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/grey_90" />
-
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/tipoUsurarioTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_middle"
@@ -77,7 +76,7 @@ android:orientation="horizontal">
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/grey_40" />
         <TextView
-            android:id="@+id/description2"
+            android:id="@+id/tipoUsurarioSalon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_middle"

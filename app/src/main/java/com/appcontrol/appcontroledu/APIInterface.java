@@ -2,9 +2,11 @@ package com.appcontrol.appcontroledu;
 
 
 import com.appcontrol.appcontroledu.activity.ReporteSaludActivity;
+import com.appcontrol.appcontroledu.data.GetPerfiles;
 import com.appcontrol.appcontroledu.data.InfoReporteSalud;
 import com.appcontrol.appcontroledu.data.Institucion;
 import com.appcontrol.appcontroledu.data.Login;
+import com.appcontrol.appcontroledu.data.perfiles.Perfiles;
 import com.appcontrol.appcontroledu.data.Persona;
 import com.appcontrol.appcontroledu.data.PutPersona;
 import com.appcontrol.appcontroledu.data.ReporteSalud;
@@ -52,6 +54,9 @@ public interface APIInterface {
 
     @POST("autoreporte/existe")
     Call<InfoReporteSalud> existReporte(@Body InfoReporteSalud infoReporteSalud);
+
+    @POST("persona/getPerfiles")
+    Call<List<Perfiles>> getPerfiles(@Body GetPerfiles perfiles);
 
 }
 

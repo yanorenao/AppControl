@@ -80,7 +80,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:background="@color/white"
                         android:orientation="vertical"
                         android:padding="@dimen/spacing_large">
 
@@ -121,7 +121,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:background="@color/white"
                         android:orientation="vertical"
                         android:padding="@dimen/spacing_large">
 
