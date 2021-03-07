@@ -6,6 +6,8 @@ import com.appcontrol.appcontroledu.data.GetPerfiles;
 import com.appcontrol.appcontroledu.data.InfoReporteSalud;
 import com.appcontrol.appcontroledu.data.Institucion;
 import com.appcontrol.appcontroledu.data.Login;
+import com.appcontrol.appcontroledu.data.instituciones.GetInstitucion;
+import com.appcontrol.appcontroledu.data.instituciones.Instituciones;
 import com.appcontrol.appcontroledu.data.perfiles.Perfiles;
 import com.appcontrol.appcontroledu.data.Persona;
 import com.appcontrol.appcontroledu.data.PutPersona;
@@ -41,8 +43,12 @@ public interface APIInterface {
     @POST("salon/all")
     Call<List<Salon>> GetAllSalon(@Body Salon salones);
 
+    @POST("persona/getInstitucion")
+    Call<Instituciones> getInfoInstitucion(@Body GetInstitucion infoInstitucion);
+
     @POST("persona")
     Call<Persona> sendPersona(@Body Persona personas);
+
     @PUT("persona")
     Call<PutPersona> sendPutPersona(@Body PutPersona personas);
 

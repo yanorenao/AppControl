@@ -66,11 +66,6 @@ public class AceptarPrefilesActivity extends AppCompatActivity {
                     //Attach the adapter to the recyclerview to populate items
                     rvContacts.setAdapter(adapter);
 
-
-
-                    ;
-
-
                 } else {
                     Log.d("erro peticion","estoy aqui");
 
@@ -81,7 +76,7 @@ public class AceptarPrefilesActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Perfiles>> call, Throwable t) {
-                Log.d("erro peticion",t.getMessage());
+                Log.d("error peticion",t.getMessage());
             }
         });
         return null;

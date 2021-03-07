@@ -63,7 +63,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="S-201" />
+                android:text="6A" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="Biblioteca Arango Perez" />
+                android:text="Sexto A" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -101,10 +101,10 @@
                 android:minHeight="@dimen/spacing_xmlarge"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle"
-                android:text="Estudio" />
+                android:text="Salón" />
 
             <Button
-                android:id="@+id/bt_submit"
+                android:id="@+id/bt_submit_salones"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
