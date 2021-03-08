@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.appcontrol.appcontroledu.APIClient;
 import com.appcontrol.appcontroledu.APIInterface;
 import com.appcontrol.appcontroledu.R;
+import com.appcontrol.appcontroledu.data.InfoUsuario;
 import com.appcontrol.appcontroledu.data.Login;
 import com.appcontrol.appcontroledu.data.Persona;
 import com.appcontrol.appcontroledu.data.User;
@@ -73,11 +74,24 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()) {
                     JsonObject myJson = response.body().getAsJsonObject();
-                    Log.d("Json", " " + myJson.toString());
-                    Intent myIntent = new Intent(LoginActivity.this, MenuPrincipalUserActivity.class);
-                    myIntent.putExtra("id", response.body().getAsJsonObject().getAsJsonObject("infoUser").getAsJsonArray("persona").get(0).getAsJsonObject().get("_id").toString().replace("\"",""));
-                    myIntent.putExtra("myjson", myJson.toString());
-                    startActivity(myIntent);
+                    Gson gson = new Gson();
+                    InfoUsuario persona = gson.fromJson(myJson, InfoUsuario.class);
+
+                    if(persona.getInfoUser().getTipoUsuario().get(0).getNombre().equals("Administrador")){
+
+                        Intent myIntent = new Intent(LoginActivity.this, MenuPrincipalActivity.class);
+                        myIntent.putExtra("id", response.body().getAsJsonObject().getAsJsonObject("infoUser").getAsJsonArray("persona").get(0).getAsJsonObject().get("_id").toString().replace("\"",""));
+                        myIntent.putExtra("myjson", myJson.toString());
+                        startActivity(myIntent);
+                    }
+                    else{
+                        Intent myIntent = new Intent(LoginActivity.this, MenuPrincipalUserActivity.class);
+                        myIntent.putExtra("id", response.body().getAsJsonObject().getAsJsonObject("infoUser").getAsJsonArray("persona").get(0).getAsJsonObject().get("_id").toString().replace("\"",""));
+                        myIntent.putExtra("myjson", myJson.toString());
+                        startActivity(myIntent);
+                    }
+
+
 
                 } else {
 
