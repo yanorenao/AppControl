@@ -378,7 +378,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
         Usuario usuario = new Usuario();
         usuario.setPersona(stringToList(global.getIdPersona()));
-        usuario.setTipoUsuario(stringToList(global.getIdTipoPerosna()));
+        usuario.setTipoUsuario(stringToList(getIntent().getStringExtra("tipoUsuario")));
         usuario.setEstado(stringToList("6033d0cc738cb125f8477099"));
         usuario.setUsuario(dataz.get("et_numeroDocumento").toString());
         usuario.setClave(dataz.get("et_contraseña").toString());
