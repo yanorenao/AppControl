@@ -40,8 +40,10 @@ import com.appcontrol.appcontroledu.data.Persona;
 import com.appcontrol.appcontroledu.data.PutPersona;
 import com.appcontrol.appcontroledu.data.Salon;
 import com.appcontrol.appcontroledu.data.Usuario;
+import com.appcontrol.appcontroledu.data.persona.PostPersona;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.jetbrains.annotations.NotNull;
@@ -291,25 +293,35 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         });
     }
 
-    private void PostPersona(Persona object) {
-        Call<Persona> call = apiInterface.sendPersona(object);
-        call.enqueue(new Callback<Persona>() {
+    private void PostPersona(PostPersona object) {
+        Call<PostPersona> call = apiInterface.sendPersona(object);
+        call.enqueue(new Callback<PostPersona>() {
             @Override
-            public void onResponse(Call<Persona> call, Response<Persona> response) {
+            public void onResponse(Call<PostPersona> call, Response<PostPersona> response) {
 
-                Globals globalIdPersona = ((Globals) getApplicationContext());
-                globalIdPersona.setIdPersona(response.body().getId());
-                //HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
-                //Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                //String json = gson.toJson(getValuesUsuario());// obj is your objectjosn
-                //Log.d("Json",json);
-                PostUsuario(getValuesUsuario());
+                if (response.isSuccessful()) {
+                    Globals globalIdPersona = ((Globals) getApplicationContext());
+                    globalIdPersona.setIdPersona(response.body().getId());
+                    //HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
+                    //Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    //String json = gson.toJson(getValuesUsuario());// obj is your objectjosn
+                    //Log.d("Json",json);
+                    PostUsuario(getValuesUsuario());
 
+                } else {
+
+                    try {
+                        Toast.makeText(getApplicationContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 
             }
 
             @Override
-            public void onFailure(Call<Persona> call, Throwable t) {
+            public void onFailure(Call<PostPersona> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
 
             }
@@ -374,10 +386,10 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
     }
 
-    private Persona getValuesPersona() {
+    private PostPersona getValuesPersona() {
         Globals global = ((Globals) getApplicationContext());
         HashMap dataz = new HashMap<String, String>(getValuesEditext(idsEditText()));
-        Persona persona = new Persona();
+        PostPersona persona = new PostPersona();
         persona.setTipoDocumento(stringToList(global.getIdDocument()));
         persona.setId("true");
         persona.setEstado(stringToList("6033d0cc738cb125f8477099"));

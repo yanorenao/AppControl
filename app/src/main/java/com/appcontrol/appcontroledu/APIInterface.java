@@ -15,6 +15,7 @@ import com.appcontrol.appcontroledu.data.ReporteSalud;
 import com.appcontrol.appcontroledu.data.Salon;
 import com.appcontrol.appcontroledu.data.User;
 import com.appcontrol.appcontroledu.data.Usuario;
+import com.appcontrol.appcontroledu.data.persona.PostPersona;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public interface APIInterface {
     Call<Instituciones> getInfoInstitucion(@Body GetInstitucion infoInstitucion);
 
     @POST("persona")
-    Call<Persona> sendPersona(@Body Persona personas);
+    Call<PostPersona> sendPersona(@Body PostPersona personas);
 
     @PUT("persona")
     Call<PutPersona> sendPutPersona(@Body PutPersona personas);
